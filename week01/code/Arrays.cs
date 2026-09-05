@@ -13,7 +13,21 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // *****************************************************************
+        // PLAN
+        // *****************************************************************
+        // First, I need to create an array that has enought spaces for however many muliples I want to create. The length tells me how many spaces I will need.
+        // Then I need to use a for loop to go throguht each spot in the array.
+        // Next, for each spot, I will need to multiply the number by the current number in the loop to figure out the next multiple. 
+        // Then I will put each multiple into the array as I go.
+        // Once I have filled the array, I will return it.
+        double[] multiples = new double[length];
+        for (int i = 0; i < length; i++)
+        {
+            multiples[i] = number * (i + 1);
+        }
+
+        return multiples; // replace this return statement with your own
     }
 
     /// <summary>
