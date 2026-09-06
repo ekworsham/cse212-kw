@@ -43,5 +43,25 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        // *****************************************************************
+        // PLAN
+        // *****************************************************************
+        // First I will create a new int list called rotated to hold the numbers in the their new order 
+        // Then I will use data.count anount to find the index where the last amount of numbers begin
+        // Next I will use a for loop to go through the list starting at that index and add each number to my list using the add function.
+        // Then I will use another for loop to go from the begining of the original list up to the starting index and add those numbers to the new list also using the add function.
+        // Last, I will clear the original data list and use AddRange() to copy all the numbers from the rotated list back into data in their new order.
+
+        List<int> rotated = new List<int>();
+        for (int i =data.Count - amount; i < data.Count; i++)
+        {
+            rotated.Add(data[i]);
+        }
+        for (int i = 0; i < data.Count - amount; i++)
+        {
+            rotated.Add(data[i]);
+        }
+        data.Clear();
+        data.AddRange(rotated);
     }
 }
