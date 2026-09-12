@@ -70,8 +70,8 @@ public class CustomerServiceSolution {
         // Defect(s) Found: None :)
     }
 
-    private readonly List<Customer> _queue = new();
-    private readonly int _maxSize;
+    public readonly List<Customer> _queue = new();
+    public readonly int _maxSize;
 
     public CustomerServiceSolution(int maxSize) {
         if (maxSize <= 0)
@@ -84,16 +84,16 @@ public class CustomerServiceSolution {
     /// Defines a Customer record for the service queue.
     /// This is an inner class.  Its real name is CustomerService.Customer
     /// </summary>
-    private class Customer {
+    public class Customer {
         public Customer(string name, string accountId, string problem) {
             Name = name;
             AccountId = accountId;
             Problem = problem;
         }
 
-        private string Name { get; }
-        private string AccountId { get; }
-        private string Problem { get; }
+        public string Name { get; }
+        public string AccountId { get; }
+        public string Problem { get; }
 
         public override string ToString() {
             return $"{Name} ({AccountId}): {Problem}";
@@ -104,7 +104,7 @@ public class CustomerServiceSolution {
     /// Prompt the user for the customer and problem information.  Put the 
     /// new record into the queue.
     /// </summary>
-    private void AddNewCustomer() {
+    public void AddNewCustomer() {
         // Verify there is room in the service queue
         // if (_queue.Count > _maxSize) // Defect 3 - should use >=
         if (_queue.Count >= _maxSize) {
@@ -127,7 +127,7 @@ public class CustomerServiceSolution {
     /// <summary>
     /// Dequeue the next customer and display the information.
     /// </summary>
-    private void ServeCustomer() {
+    public void ServeCustomer() {
         // Need to check if there are customers in our queue
         if (_queue.Count <= 0) // Defect 2 - Need to check queue length
         {

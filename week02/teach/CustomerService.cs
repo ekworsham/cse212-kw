@@ -11,24 +11,67 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Add one customer and serve
+        // Expected Result: Display customer
         Console.WriteLine("Test 1");
+        var service = new CustomerServiceSolution (4);
+        service.AddNewCustomer();
+        service.ServeCustomer();
 
-        // Defect(s) Found: 
+        // Defect(s) Found: ServeCustomer should get customer before deleting
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Add two customers then serve in order
+        // Expected Result: Display customers in same order they were added
         Console.WriteLine("Test 2");
+        service = new CustomerServiceSolution(4);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        Console.WriteLine($"Before serving customers: {service}");
+        service.ServeCustomer();
+        service.ServeCustomer();
+        Console.WriteLine($"After serving customers: {service}");
 
-        // Defect(s) Found: 
+        // Defect(s) Found: noee
 
         Console.WriteLine("=================");
 
         // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: Serve without customer?
+        // Expected result: error message
+        Console.WriteLine("Test 3)");
+        service = new CustomerServiceSolution(4);
+        service.ServeCustomer();
+        // Defect(s) Found; to check length in serve_customer for error message
+
+        Console.WriteLine("=================");
+
+            // Test 4
+        // Scenario: Does max queue size get enforced?
+        // Expected Result: Display error message when 5th added
+        Console.WriteLine("Test 4");
+        service = new CustomerServiceSolution(4);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        Console.WriteLine($"Service Queue: {service}");
+        // Defect(s) Found: need to do >= instead of > in AddNewCustomer
+
+        Console.WriteLine("=================");
+
+
+        // Test 5
+        // Scenario: DIs max size getting defaulted to 10 if an invalid value is provided?
+        // Expected Result: It should display 10
+        Console.WriteLine("Test 5");
+        service = new CustomerServiceSolution(0);
+        Console.WriteLine($"Size should be 10: {service}");
+        // Defect(s) Found: None :)
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,7 +110,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +131,15 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if(_queue.Count <= 0)
+        {
+            Console.WriteLine("No Customers in the queue");
+        }
+        else {
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+            }
     }
 
     /// <summary>
