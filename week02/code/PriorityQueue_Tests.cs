@@ -6,9 +6,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: Add three items to queue with different priority
-    // Expected Result: items added to the back in order they were added 
-    // Defect(s) Found: 
+    // Scenario: Items are added to the back in the insertion order
+    // Expected Result: Adds First, Second, Third and checks the queue order 
+    // Defect(s) Found: adds second not first as expected. I updated Enqueue to create a new PriorityItem and use _queue.Add to ensure each new item is added to the back of the queue.
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
@@ -23,9 +23,9 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-    // Scenario: Add 3 items with different priorities and remove one item
-    // Expected Result: Item with highest priority is removed and returned
-    // Defect(s) Found: 
+    // Scenario: Dequeue removes the highest priority
+    // Expected Result: Adds priorities 1, 10, 5 and expects "High" (priority 10)
+    // Defect(s) Found: Dequeue loop did not check the last item because of the - 1 so I changed the condition removing - 1 so the last item is checked
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
@@ -40,9 +40,9 @@ public class PriorityQueueTests
     }
 
       [TestMethod]
-    // Scenario: Add multiple items with the same highest priority 
-    // Expected Result: The first item with highest priority is removed first.
-    // Defect(s) Found: 
+    // Scenario: Equal prriorities and handled FIFO
+    // Expected Result: Frist and Second both have priority 10, expects "First"
+    // Defect(s) Found: Error; Returns "Second". Changed operator >= (which caused the later item to replacd the earlier item) to > so the first item with highest priority is returned when they are equal 
     public void TestPriorityQueue_3()
     {
         var priorityQueue = new PriorityQueue();
@@ -59,7 +59,7 @@ public class PriorityQueueTests
       [TestMethod]
     // Scenario: Attempt to remove an item from an empty queue
     // Expected Result: throws the message "The queue is empty"
-    // Defect(s) Found: 
+    // Defect(s) Found: Did not throw message, added the empty queue check that throws an Invalid Operation Exception with the expected message.
     public void TestPriorityQueue_4()
     {
         var priorityQueue = new PriorityQueue();
