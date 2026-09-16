@@ -1,4 +1,8 @@
-﻿public class DuplicateCounter
+﻿using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.VisualBasic;
+
+public class DuplicateCounter
 {
     //Count how many duplicates are in a collection of data.
 
@@ -20,11 +24,27 @@
 
         Console.WriteLine($"Number of items in the collection: {data.Length}");
         Console.WriteLine($"Number of duplicates : {CountDuplicates(data)}");
+        Console.WriteLine($"Number of duplicates (alternate): {CountDuplicatesAlternate(data)}");
     }
 
     private static int CountDuplicates(int[] data)
     {
         // Add code here.
-        return 0;
+        var i = new HashSet<int>();
+        var duplicate = 0;
+        
+        foreach (var x in data)
+        {
+            if (i.Contains(x))
+                duplicate++;
+            else
+                i.Add(x);
+        }
+        return duplicate;
+    }
+    private static int CountDuplicatesAlternate(int[] data)
+    {
+        var i = new HashSet<int>(data);
+        return data.Length - i.Count;  
     }
 }
