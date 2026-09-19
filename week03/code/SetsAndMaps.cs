@@ -22,8 +22,25 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var wordSet = new HashSet<string>(words);
+        var pairs = new List<string>();
+
+        foreach(var word in words)
+        {
+            var reverse = $"{word[1]}{word[0]}";
+
+            if (word != reverse && wordSet.Contains(reverse))
+            {
+                pairs.Add($"{word} & {reverse}");
+                wordSet.Remove(word);
+                wordSet.Remove(reverse);
+            }
+
+        }
+        return pairs.ToArray();
     }
+
+
 
     /// <summary>
     /// Read a census file and summarize the degrees (education)
@@ -43,6 +60,15 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                degrees.Add(degree, 1);
+            }
         }
 
         return degrees;
@@ -67,7 +93,51 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var letters = new Dictionary<char, int>();
+        var letters2 = new Dictionary<char, int>();
+
+        word1 = word1.Replace(" ", "").ToUpper();
+        word2 = word2.Replace(" ", "").ToUpper();
+        
+        foreach (var letter in word1)
+        {
+            if (letters.ContainsKey(letter))
+            {
+                letters[letter]++;
+            }
+            else
+            {
+                letters.Add(letter, 1);
+            }
+        }
+        
+        foreach (var letter in word2)
+        {
+            if (letters2.ContainsKey(letter))
+            {
+                letters2[letter]++;
+            }
+            else
+            {
+                letters2.Add(letter, 1);
+            }
+        }
+
+        if (letters.Count != letters2.Count)
+        {
+            return false;
+        }
+
+        foreach (var letter in letters)
+        {
+            if(!letters2.ContainsKey(letter.Key) || letters2[letter.Key] != letter.Value)
+            {
+                return false;
+            }
+        }
+
+        return true;
+        
     }
 
     /// <summary>
