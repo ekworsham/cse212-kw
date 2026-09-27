@@ -78,6 +78,16 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        if (_tail == _head)
+        {
+            _head = null;
+            _tail = null;
+        }
+        else if (_tail is not null)
+        {
+            _tail.Next!.Next = null;
+            _tail = _tail.Prev;
+        }
     }
 
     /// <summary>
@@ -124,6 +134,9 @@ public class LinkedList : IEnumerable<int>
         // TODO Problem 3
     }
 
+
+
+
     /// <summary>
     /// Search for all instances of 'oldValue' and replace the value to 'newValue'.
     /// </summary>
@@ -153,6 +166,8 @@ public class LinkedList : IEnumerable<int>
             curr = curr.Next; // Go forward in the linked list
         }
     }
+
+
 
     /// <summary>
     /// Iterate backward through the Linked List
