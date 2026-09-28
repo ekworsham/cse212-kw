@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 public class LinkedList : IEnumerable<int>
 {
@@ -85,8 +86,9 @@ public class LinkedList : IEnumerable<int>
         }
         else if (_tail is not null)
         {
-            _tail.Next!.Next = null;
-            _tail = _tail.Prev;
+             _tail = _tail.Prev;
+             _tail!.Next = null;
+           
         }
     }
 
@@ -132,6 +134,39 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                if (curr == _head)
+                {
+                   _head = curr.Next;
+
+                   if (_head != null)
+                    {
+                        _head.Prev = null;
+                    }
+                    else
+                    {
+                        _tail = null;
+                    }
+                }
+                else if (curr == _tail)
+                {
+                    _tail = curr.Prev;
+                    _tail!.Next = null;
+                }
+                else
+                {
+                    curr.Prev!.Next = curr.Next;
+                    curr.Next!.Prev = curr.Prev;
+                }
+
+                return;
+            }
+            curr = curr.Next;
+        }
     }
 
 
