@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Transactions;
 
 public class LinkedList : IEnumerable<int>
 {
@@ -170,15 +171,24 @@ public class LinkedList : IEnumerable<int>
     }
 
 
-
-
     /// <summary>
     /// Search for all instances of 'oldValue' and replace the value to 'newValue'.
     /// </summary>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == oldValue)
+            {
+                curr.Data = newValue;
+            }
+
+            curr = curr.Next;
+        }
     }
+
 
     /// <summary>
     /// Yields all values in the linked list
@@ -201,7 +211,6 @@ public class LinkedList : IEnumerable<int>
             curr = curr.Next; // Go forward in the linked list
         }
     }
-
 
 
     /// <summary>
